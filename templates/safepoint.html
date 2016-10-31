@@ -1,0 +1,76 @@
+<!doctype html>
+<title>DAM</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+	<h1>DAM : DATA ACQUISITION AND MANAGEMENT (during floods)</h1>	
+{% block body %}
+	<div id="map" onload="initMap()"></div>
+    <script>
+      function initMap() {
+      	var str1= document.getElementById("name1").value;
+      	var v_x1= parseFloat(document.getElementById("x1").value);
+      	var v_y1= parseFloat(document.getElementById("y1").value);
+      	var myLatLng1 = {lat: v_y1, lng: v_x1};
+      	
+      	var str2= document.getElementById("name2").value;
+       	var v_x2= parseFloat(document.getElementById("x2").value);
+      	var v_y2= parseFloat(document.getElementById("y2").value);
+      	var myLatLng2 = {lat: v_y2, lng: v_x2};
+      	
+      	var mid_x= (v_x1+v_x2)/2;
+      	var mid_y= (v_y1+v_y2)/2;
+      	
+      		
+        	var mapDiv = document.getElementById('map');
+        	var map = new google.maps.Map(mapDiv, {
+            center: {lat: mid_y, lng: mid_x},
+            zoom: 10
+        	});   			
+			var directionsService = new google.maps.DirectionsService;
+			var directionsDisplay = new google.maps.DirectionsRenderer({
+			    polylineOptions: {strokeColor: "red"}});
+			directionsDisplay.setMap(map);
+			calculateAndDisplayRoute(directionsService, directionsDisplay);
+			function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        		directionsService.route({
+          	origin: myLatLng1,
+	         destination: myLatLng2,
+          	travelMode: 'DRIVING'
+        		}, function(response, status) {
+          		if (status === 'OK') 
+          		{
+            		directionsDisplay.setDirections(response);
+         		} else 
+         		{
+            		window.alert('Directions request failed due to ' + status);
+          		}});}}
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfc5mkrtnyah0km_u2pYt-pB5p4v2-vv0&callback=initMap">
+    </script>
+  {% if session.logged_in %}
+  <h2>Safepoint</h2>
+  <ul class=entries>
+  {% for entry in entries %}    
+    <input type=hidden size=30 id="name1" value="{{entry.name}}" >
+    <input type=hidden size=30 id="x1" value="{{entry.x}}"  >
+    <input type=hidden size=30 id="y1" value="{{entry.y}}" >
+  {% else %}
+    <li><em>No entries here so far</em>
+  {% endfor %}
+  
+  </ul> 
+  {% endif %}
+  {% if session.logged_in %}
+  <ul class=entries1>
+  {% for ent in entries1 %}    
+    <input type=hidden size=30 id="name2" value="{{ent.name}}"  >
+    <input type=hidden size=30 id="x2" value="{{ent.x}}" >
+    <input type=hidden size=30 id="y2" value="{{ent.y}}" >
+  {% else %}
+    <li><em>No entries here so far</em>
+  {% endfor %}
+  </ul>
+  {% endif %} 
+   
+{% endblock %}

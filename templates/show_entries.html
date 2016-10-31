@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+  		<h4>Data Acquisition Form</h4>
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+      <dl>
+        <dt>Name:
+        <dd><input type=text size=30 name=name class="form-control">
+	<dt>Number of acquaintances:
+        <dd><input type=text size=30 name=acquaintances class="form-control">
+        <dt>Settlement:
+        <dd>
+        <select id=villages name=settlement>
+  			<option value="Mejhia">Mejhia</option>
+			<option value="Gangajalghat">Gangajalghat</option>
+			<option value="Kotulpur">Kotulpur</option>
+			<option value="Sonamukhi">Sonamukhi</option>
+			<option value="Indas">Indas</option>
+			<option value="Raipur">Raipur</option>
+			<option value="Sarenga">Sarenga</option>
+			<option value="Simlapal">Simlapal</option>
+			<option value="Taldangra">Taldangra</option>
+			<option value="Saltora">Saltora</option>
+		</select>
+		<br></br>
+        <dd><input type="submit" class="btn btn-info btn-block" value="Upload">
+      </dl>
+    </form>
+
+<form action="{{ url_for('risk_grade') }}" method=post class=add-entry>
+      <dl>
+        <dd><input type="submit" class="btn btn-info btn-block" value="Risk Zones">
+      </dl>
+    </form>
+    </form>
+
+	{% else %}
+		
+  {% endif %}
+{% endblock %}
+

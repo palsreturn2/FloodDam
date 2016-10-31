@@ -1,0 +1,36 @@
+<!doctype html>
+<title>DAM</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+
+<div class=page>
+	<h1>DAM : DATA ACQUISITION AND MANAGEMENT (during floods)</h1>
+	
+	{% block body %}
+  		{% if session.logged_in %}
+  		<ul class=entries>
+  			<h4>Settlements in decreasing order of number of affected people</h4>
+ 		 <table class="table table-bordered">
+  			 <thead>
+   		   <tr>
+    		    <th>Settlement</th>
+    		    <th>Number of affected people</th>
+   		   </tr>
+		    </thead>
+		  <tbody>
+ 			 {% for entry in entries %}
+ 			   <tr><td>{{ entry.settlement|safe }}</td><td>{{ entry.GRADE|safe }}</td></tr>
+ 			 {% else %}
+			    <li><em>No entries here so far</em>
+			  {% endfor %}
+ 		 </tbody>
+	  </ul>
+		  {% endif %}
+	{% endblock %}
+</div>
