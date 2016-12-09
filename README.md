@@ -12,7 +12,7 @@ In case of natural calamities, certain zones become hotspots. Data acquisition b
 
 1) Download the codes in a folder in as many machines as you want to run the program.
 
-2) Open the Master.py and Client.py in each of the machines and change the variables "OWN_IP" and "MASTER_IP" with the machine's IP and master machine's IP. You can arbitrarily choose a Master machine.
+2) Open the Master.py and Client.py in each of the machines and change the variables "IP" and "MASTER_IP" with the machine's IP and master machine's IP. You can arbitrarily choose a Master machine.
 
 3) Install flaskr. You need this to run the web service program.
 
@@ -25,4 +25,6 @@ In case of natural calamities, certain zones become hotspots. Data acquisition b
 7) Then start the Client nodes also by running the "Master.py" and "Client.py" program. Start the web service using "./run_flaskr.sh".
 
 8) Fire up the browser and go to the address "127.0.0.1:5000". This will open the web service in the current machine. To open the other web services from a single machine use the machine's IP instead of "127.0.0.1" .
+
+
 
